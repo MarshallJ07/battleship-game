@@ -10,4 +10,3 @@ func _on_host_created():
 	
 func _peer_connected(peer_id:int):
 	pass
-ssdfasdf
