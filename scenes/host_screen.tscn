@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bfpy6r1q1ypr2"]
+
+[ext_resource type="Script" uid="uid://cmk6xpaxfsvwb" path="res://scripts/control.gd" id="1_nidx7"]
+
+[node name="hostScreen" type="Control" unique_id=203827817]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nidx7")
+
+[node name="host" type="Button" parent="." unique_id=622025494]
+layout_mode = 0
+offset_left = 546.0
+offset_top = 295.0
+offset_right = 597.0
+offset_bottom = 326.0
+text = "HOST"
+
+[node name="start" type="Button" parent="." unique_id=1932936608]
+layout_mode = 0
+offset_left = 547.0
+offset_top = 405.0
+offset_right = 603.0
+offset_bottom = 436.0
+text = "START"
+
+[connection signal="pressed" from="host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
