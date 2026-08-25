@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b8vgopeu0lrsg"]
+
+[ext_resource type="Texture2D" uid="uid://sgic7isifrhk" path="res://assets/art/crossair.png" id="1_t3fhf"]
+[ext_resource type="Script" uid="uid://rik82afhi11d" path="res://scripts/crossair.gd" id="2_wwoat"]
+
+[node name="crossair" type="Sprite2D" unique_id=651641727]
+z_index = 100
+texture = ExtResource("1_t3fhf")
+script = ExtResource("2_wwoat")

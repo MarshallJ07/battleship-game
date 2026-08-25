@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://de7fsmseerj1j"]
+
+[ext_resource type="Script" uid="uid://djdl3frccfciw" path="res://scripts/ship.gd" id="1_l6kpu"]
+[ext_resource type="Texture2D" uid="uid://du5o41v4akjxs" path="res://assets/art/ship3x1.png" id="2_l6kpu"]
+[ext_resource type="Texture2D" uid="uid://c5e44mp14qlk7" path="res://assets/art/ship3x1Pressed.png" id="3_u6548"]
+[ext_resource type="Texture2D" uid="uid://hmtcsjtnb8qe" path="res://assets/art/ship3x1Hover.png" id="4_c3tii"]
+
+[node name="Node2D" type="Node2D" unique_id=1008808700]
+script = ExtResource("1_l6kpu")
+
+[node name="ship" type="TextureButton" parent="." unique_id=1375974181]
+z_index = 1
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 56.0
+offset_bottom = 8.0
+pivot_offset = Vector2(8, 8)
+disabled = true
+texture_normal = ExtResource("2_l6kpu")
+texture_pressed = ExtResource("3_u6548")
+texture_hover = ExtResource("4_c3tii")
+
+[node name="ghost" type="Sprite2D" parent="." unique_id=1054519083]
+modulate = Color(1, 1, 1, 0.24313726)
+z_index = 1
+texture = ExtResource("2_l6kpu")
+offset = Vector2(24, 0)

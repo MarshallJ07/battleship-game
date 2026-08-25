@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d2m86dbje7hdt"]
+
+[ext_resource type="Script" uid="uid://d1gq2ujwbgwrj" path="res://scripts/game.gd" id="1_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://deix8ls6gxiul" path="res://assets/art/grid.png" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://d3irkfw3wyiim" path="res://scenes/grid_1.gd" id="2_yqjtg"]
+
+[node name="game" type="Node2D" unique_id=197557881]
+script = ExtResource("1_lnu2h")
+
+[node name="grid1" type="Sprite2D" parent="." unique_id=212386022]
+position = Vector2(273, 307)
+scale = Vector2(2, 2)
+texture = ExtResource("1_uwrxv")
+script = ExtResource("2_yqjtg")
+
+[node name="grid2" type="Sprite2D" parent="." unique_id=1756741039]
+position = Vector2(832, 311)
+scale = Vector2(2, 2)
+texture = ExtResource("1_uwrxv")
+
+[node name="fire" type="Button" parent="." unique_id=133907721]
+offset_left = 538.0
+offset_top = 562.0
+offset_right = 579.0
+offset_bottom = 593.0
+text = "FIRE"
