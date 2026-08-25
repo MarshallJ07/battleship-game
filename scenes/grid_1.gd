@@ -16,15 +16,38 @@ var CELL_SIZE:int = 16
 
 var ship: Node2D
 var shipSize = Vector2(4,1)
-var placing = false
-var placable = false
-var activeShip = 0
+var placing := false
+var placable := false
+var activeShip := 0
+var shipsPlaced := 0
+var isReady := false
+var isEnemyReady := false
+@onready var fire: Button = $"../fire"
+@onready var start: Button = $"../start"
+@onready var ships: Node2D = $ships
+@onready var readyLabel: Label = $"../ready"
+@onready var enemyReadyLabel: Label = $"../enemyReady"
+
 func _ready() -> void:
 	add_child(ship)
 	
 func _physics_process(delta: float) -> void:
 	if placing:
 		check_valid_ship(shipSize,pos_to_grid(get_local_mouse_position()))
+	
+	if multiplayer.is_server():
+		_check_ready.rpc()
+		if isEnemyReady and isReady:
+			_start_game()
+@rpc("any_peer","reliable")
+func _check_ready() -> void:
+	_enemy_ready.rpc_id(1,isReady)
+
+@rpc("any_peer","reliable")
+func _enemy_ready(enemyReady) -> void:
+	isEnemyReady = enemyReady
+
+
 
 func _input(event: InputEvent) -> void:
 	
@@ -56,20 +79,20 @@ func _input(event: InputEvent) -> void:
 func get_boat(num:int) -> void:
 	if not placing:
 		
-		
-		if num == 2:
+		if num == 0:
 			shipSize = Vector2(2,1)
 			ship = preload("res://scenes/ship2x1.tscn").instantiate()
-		if num == 3:
+		if num == 1:
 			shipSize = Vector2(3,1)
 			ship = preload("res://scenes/ship3x1.tscn").instantiate()
-		if num == 4:
+		if num == 2:
 			shipSize = Vector2(4,1)
 			ship = preload("res://scenes/ship.tscn").instantiate()
-		if num == 5:
+		if num == 3:
 			shipSize = Vector2(4,2)
 			ship = preload("res://scenes/ship4x2.tscn").instantiate()
-		add_child(ship)
+			
+		ships.add_child(ship)
 		
 		
 func place_ship() -> void:
@@ -82,9 +105,7 @@ func place_ship() -> void:
 			grid[coords[1] + y][coords[0] + x] = activeShip
 	ship.ship.position = Vector2(ship.ghost.position.x - CELL_SIZE/2,ship.ghost.position.y - CELL_SIZE/2)
 	placing = false
-	await get_tree().create_timer(0.2).timeout
-	ship.ship.disabled = false
-	
+	shipsPlaced += 1
 func check_valid_ship(size,coord) -> void:
 	var valid := true
 	for n in abs(size[0]):
@@ -120,3 +141,18 @@ func rotate_ship() -> void:
 	var temp = Vector2(-shipSize[1],shipSize[0])
 	shipSize = temp
 	var coord = pos_to_grid(get_local_mouse_position())
+
+func _start_game() -> void:
+	fire.show()
+	
+
+func _on_start_pressed() -> void:
+	if shipsPlaced == 5:
+		start.hide()
+		isReady = true
+		
+		readyLabel.text = "READY"
+		_change_ready_label.rpc()
+@rpc("any_peer","reliable")
+func _change_ready_label() -> void:
+	enemyReadyLabel.text = "READY"

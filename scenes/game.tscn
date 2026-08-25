@@ -3,6 +3,11 @@
 [ext_resource type="Script" uid="uid://d1gq2ujwbgwrj" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://deix8ls6gxiul" path="res://assets/art/grid.png" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d3irkfw3wyiim" path="res://scenes/grid_1.gd" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://c837rqixkelwo" path="res://scripts/shipButton.gd" id="4_gee14"]
+[ext_resource type="PackedScene" uid="uid://brb15et0m5cyd" path="res://scenes/ship2x1.tscn" id="5_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://de7fsmseerj1j" path="res://scenes/ship3x1.tscn" id="6_vtaks"]
+[ext_resource type="PackedScene" uid="uid://bofr7gupbh33x" path="res://scenes/ship4x2.tscn" id="7_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://bpjgfwts2t3to" path="res://scenes/ship.tscn" id="8_dinhu"]
 
 [node name="game" type="Node2D" unique_id=197557881]
 script = ExtResource("1_lnu2h")
@@ -13,14 +18,74 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_uwrxv")
 script = ExtResource("2_yqjtg")
 
+[node name="ships" type="Node2D" parent="grid1" unique_id=384917700]
+
 [node name="grid2" type="Sprite2D" parent="." unique_id=1756741039]
 position = Vector2(832, 311)
 scale = Vector2(2, 2)
 texture = ExtResource("1_uwrxv")
 
 [node name="fire" type="Button" parent="." unique_id=133907721]
+visible = false
 offset_left = 538.0
 offset_top = 562.0
 offset_right = 579.0
 offset_bottom = 593.0
 text = "FIRE"
+
+[node name="start" type="Button" parent="." unique_id=2122241197]
+offset_left = 529.0
+offset_top = 314.0
+offset_right = 585.0
+offset_bottom = 345.0
+text = "START"
+
+[node name="buttons" type="Node2D" parent="." unique_id=1372528282]
+script = ExtResource("4_gee14")
+
+[node name="ship1" parent="buttons" unique_id=1008808700 instance=ExtResource("5_0tnpc")]
+position = Vector2(175, 568)
+rotation = -1.5707964
+script = null
+
+[node name="ship2" parent="buttons" unique_id=1816039848 instance=ExtResource("6_vtaks")]
+position = Vector2(229, 569)
+rotation = -1.5707964
+script = null
+
+[node name="ship3" parent="buttons" unique_id=1148327715 instance=ExtResource("7_kvpfn")]
+position = Vector2(273, 571)
+rotation = -1.5707964
+script = null
+
+[node name="ship4" parent="buttons" unique_id=347077416 instance=ExtResource("8_dinhu")]
+position = Vector2(331, 568)
+rotation = -1.5707964
+script = null
+
+[node name="ship5" parent="buttons" unique_id=2045744655 instance=ExtResource("8_dinhu")]
+position = Vector2(375, 567)
+rotation = -1.5707964
+script = null
+
+[node name="ready" type="Label" parent="." unique_id=583775444]
+offset_left = 207.0
+offset_top = 92.0
+offset_right = 340.0
+offset_bottom = 115.0
+text = "NOT READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="enemyReady" type="Label" parent="." unique_id=2064613780]
+offset_left = 765.0
+offset_top = 96.0
+offset_right = 898.0
+offset_bottom = 119.0
+text = "NOT READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="start" to="grid1" method="_on_start_pressed"]
