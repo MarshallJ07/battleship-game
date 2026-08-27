@@ -95,6 +95,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="turn" type="Label" parent="." unique_id=1664517212]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 501.0
+offset_top = 35.0
+offset_right = 634.0
+offset_bottom = 58.0
+grow_horizontal = 2
+text = "PLAYER 1's TURN"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="move" type="Button" parent="." unique_id=389375689]
 visible = false
 offset_left = 157.0

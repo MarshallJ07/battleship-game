@@ -23,6 +23,8 @@ func _send_shot_info(type) -> void:
 		_miss()
 	else:
 		_hit(type)
+	grid.turn *= -1
+	grid.shooting = false
 
 func _hit(type) -> void:
 	print('hit ' + str(type))

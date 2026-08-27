@@ -13,7 +13,7 @@ var grid = [
 	[0,0,0,0,0,0,0,0,0,0]
 ]
 var CELL_SIZE:int = 16
-
+var turn = 1
 var ship: Node2D
 var shipSize = Vector2(4,1)
 var placing := false
@@ -177,6 +177,10 @@ func rotate_ship() -> void:
 	var coord = pos_to_grid(get_local_mouse_position())
 
 func _start_game() -> void:
+	undisable_ships()
+	
+@rpc("any_peer","reliable")
+func undisable_ships() -> void:
 	buttons.hide()
 	for i in ships.get_children():
 		i.ship.disabled = false
@@ -194,4 +198,5 @@ func _change_ready_label() -> void:
 
 
 func _on_ability_pressed() -> void:
-	shooting = true
+	if (turn == 1 and multiplayer.is_server()) or (turn == -1 and !multiplayer.is_server()):
+		shooting = true
