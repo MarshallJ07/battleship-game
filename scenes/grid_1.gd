@@ -41,7 +41,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if placing:
 		check_valid_ship(shipSize,pos_to_grid(get_local_mouse_position()))
-	
 	if multiplayer.is_server():
 		_check_ready.rpc()
 		if isEnemyReady and isReady:
@@ -78,18 +77,6 @@ func _input(event: InputEvent) -> void:
 		if placing:
 			if placable:
 				place_ship()
-	if Input.is_action_just_pressed("2"):
-		get_boat(2)
-		activeShip = 2
-	if Input.is_action_just_pressed("3"):
-		get_boat(3)
-		activeShip = 3
-	if Input.is_action_just_pressed("4"):
-		get_boat(4)
-		activeShip = 4
-	if Input.is_action_just_pressed("5"):
-		get_boat(5)
-		activeShip = 5
 	if Input.is_action_just_pressed("ui_accept"):
 		print('1')
 		for i in grid:
@@ -112,19 +99,27 @@ func get_boat(num:int) -> void:
 		if num == 1:
 			shipSize = Vector2(1,-2)
 			ship = preload("res://scenes/ship2x1.tscn").instantiate()
-			ship.id = num
+			ship.type = num
+			Global.placedShips.append(ship)
+			ship.id = Global.placedShips.size()
 		elif num == 2:
 			shipSize = Vector2(1,-3)
 			ship = preload("res://scenes/ship3x1.tscn").instantiate()
-			ship.id = num
+			ship.type = num
+			Global.placedShips.append(ship)
+			ship.id = Global.placedShips.size()
 		elif num == 3:
 			shipSize = Vector2(1,-4)
 			ship = preload("res://scenes/ship.tscn").instantiate()
-			ship.id = num
+			ship.type = num
+			Global.placedShips.append(ship)
+			ship.id = Global.placedShips.size()
 		elif num == 4:
 			shipSize = Vector2(2,-4)
 			ship = preload("res://scenes/ship4x2.tscn").instantiate()
-			ship.id = num
+			ship.type = num
+			Global.placedShips.append(ship)
+			ship.id = Global.placedShips.size()
 		
 		ships.add_child(ship)
 		
@@ -136,6 +131,7 @@ func place_ship() -> void:
 		for i in abs(shipSize[1]):
 			var x =  n * shipSize[0]/abs(shipSize[0])
 			var y = i * shipSize[1]/abs(shipSize[1])
+			print("active ship ",activeShip)
 			grid[coords[1] + y][coords[0] + x] = activeShip
 	ship.ship.position = Vector2(ship.ghost.position.x - CELL_SIZE/2,ship.ghost.position.y - CELL_SIZE/2)
 	placing = false

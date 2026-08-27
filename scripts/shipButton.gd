@@ -8,5 +8,6 @@ func _ready() -> void:
 		get_child(i).get_child(0).disabled = false
 func _pressed(ship) -> void:
 	grid.get_boat(Global.ships[ship])
-	grid.activeShip = Global.ships[ship]
+	grid.activeShip = Global.placedShips.size()
+	print(Global.placedShips)
 	get_child(ship).get_child(0).disabled = true
