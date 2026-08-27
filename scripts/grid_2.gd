@@ -11,11 +11,11 @@ func _input(event: InputEvent) -> void:
 	if grid.shooting and Input.is_action_just_pressed("click"):
 		var pos = pos_to_grid(get_local_mouse_position())
 		if pos[0] >= 0 and pos[0] <= 9 and pos[1] >= 0 and pos[1] <= 9:
-			_check_enemy_grid(pos)
+			_check_enemy_grid.rpc(pos)
 		
 @rpc("any_peer","reliable")
 func _check_enemy_grid(pos) -> void:
-	_send_shot_info(grid.grid[pos[1]][pos[0]])
+	_send_shot_info.rpc(grid.grid[pos[1]][pos[0]])
 
 @rpc("any_peer","reliable")
 func _send_shot_info(type) -> void:

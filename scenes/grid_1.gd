@@ -91,10 +91,20 @@ func _input(event: InputEvent) -> void:
 		get_boat(5)
 		activeShip = 5
 	if Input.is_action_just_pressed("ui_accept"):
+		print('1')
 		for i in grid:
 			print(i)
 		print()
 		print()
+		print_enemy_grid.rpc() 
+
+@rpc("any_peer","reliable")
+func print_enemy_grid() -> void:
+	print('2')
+	for i in grid:
+		print(i)
+	print()
+	print()
 
 func get_boat(num:int) -> void:
 	if not placing:
