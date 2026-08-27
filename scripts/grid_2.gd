@@ -16,17 +16,17 @@ func _input(event: InputEvent) -> void:
 @rpc("any_peer","reliable")
 func _check_enemy_grid(pos) -> void:
 	
-	_send_shot_info.rpc(get_ship_by_id(grid.grid[pos[1]][pos[0]]))
+	_send_shot_info.rpc(grid.grid[pos[1]][pos[0]])
 
 @rpc("any_peer","reliable")
-func _send_shot_info(ship) -> void:
-	
-	if ship.id == 0:
+func _send_shot_info(id) -> void:
+	var ship = get_ship_by_id(id)
+	if id == 0:
 		print('miss')
 		_miss.rpc()
 	else:
 		print('hit ' + str(ship.type))
-		_hit.rpc(ship)
+		_hit.rpc(id)
 	switch_turn.rpc()
 	grid.shooting = false
 	
@@ -34,7 +34,8 @@ func _send_shot_info(ship) -> void:
 func switch_turn() -> void:
 	grid.turn *= -1
 @rpc("any_peer","reliable")
-func _hit(ship) -> void:
+func _hit(id) -> void:
+	var ship = get_ship_by_id(id)
 	ship.health -= 1
 	if ship.health == 0:
 		print('ship sunk')
