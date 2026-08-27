@@ -177,9 +177,9 @@ func rotate_ship() -> void:
 	var coord = pos_to_grid(get_local_mouse_position())
 
 func _start_game() -> void:
-	undisable_ships()
+	undisable_ships.rpc()
 	
-@rpc("any_peer","reliable")
+@rpc("any_peer","reliable","call_local")
 func undisable_ships() -> void:
 	buttons.hide()
 	for i in ships.get_children():
