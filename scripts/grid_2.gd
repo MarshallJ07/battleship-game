@@ -23,8 +23,11 @@ func _send_shot_info(type) -> void:
 		_miss()
 	else:
 		_hit(type)
-	grid.turn *= -1
+	switch_turn.rpc()
 	grid.shooting = false
+@rpc("any_peer","reliable","call_local")
+func switch_turn() -> void:
+	grid.turn *= -1
 
 func _hit(type) -> void:
 	print('hit ' + str(type))
