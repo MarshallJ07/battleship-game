@@ -1,4 +1,4 @@
 extends Node
 
 
-var ships = [0,1,3,2,2]
+var ships = [1,2,4,3,3]

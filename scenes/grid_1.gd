@@ -22,11 +22,18 @@ var activeShip := 0
 var shipsPlaced := 0
 var isReady := false
 var isEnemyReady := false
+var testMode := true
+var selectedShip := 0
+var shooting := false
 @onready var fire: Button = $"../fire"
 @onready var start: Button = $"../start"
 @onready var ships: Node2D = $ships
 @onready var readyLabel: Label = $"../ready"
 @onready var enemyReadyLabel: Label = $"../enemyReady"
+@onready var move: Button = $"../move"
+@onready var ability: Button = $"../ability"
+@onready var buttons: Node2D = $"../buttons"
+@onready var ship_name: Label = $"../shipName"
 
 func _ready() -> void:
 	add_child(ship)
@@ -39,6 +46,19 @@ func _physics_process(delta: float) -> void:
 		_check_ready.rpc()
 		if isEnemyReady and isReady:
 			_start_game()
+		elif testMode and isReady:
+			_start_game()
+			
+	if selectedShip != 0:
+		move.show()
+		ability.show()
+		move.disabled = false
+		ability.disabled = false
+		ship_name.show()
+		ship_name.text = "Ship " + str(selectedShip)
+			
+	
+			
 @rpc("any_peer","reliable")
 func _check_ready() -> void:
 	_enemy_ready.rpc_id(1,isReady)
@@ -79,19 +99,23 @@ func _input(event: InputEvent) -> void:
 func get_boat(num:int) -> void:
 	if not placing:
 		
-		if num == 0:
-			shipSize = Vector2(2,1)
-			ship = preload("res://scenes/ship2x1.tscn").instantiate()
 		if num == 1:
-			shipSize = Vector2(3,1)
+			shipSize = Vector2(1,-2)
+			ship = preload("res://scenes/ship2x1.tscn").instantiate()
+			ship.id = num
+		elif num == 2:
+			shipSize = Vector2(1,-3)
 			ship = preload("res://scenes/ship3x1.tscn").instantiate()
-		if num == 2:
-			shipSize = Vector2(4,1)
+			ship.id = num
+		elif num == 3:
+			shipSize = Vector2(1,-4)
 			ship = preload("res://scenes/ship.tscn").instantiate()
-		if num == 3:
-			shipSize = Vector2(4,2)
+			ship.id = num
+		elif num == 4:
+			shipSize = Vector2(2,-4)
 			ship = preload("res://scenes/ship4x2.tscn").instantiate()
-			
+			ship.id = num
+		
 		ships.add_child(ship)
 		
 		
@@ -143,8 +167,9 @@ func rotate_ship() -> void:
 	var coord = pos_to_grid(get_local_mouse_position())
 
 func _start_game() -> void:
-	fire.show()
-	
+	buttons.hide()
+	for i in ships.get_children():
+		i.ship.disabled = false
 
 func _on_start_pressed() -> void:
 	if shipsPlaced == 5:
@@ -156,3 +181,7 @@ func _on_start_pressed() -> void:
 @rpc("any_peer","reliable")
 func _change_ready_label() -> void:
 	enemyReadyLabel.text = "READY"
+
+
+func _on_ability_pressed() -> void:
+	shooting = true

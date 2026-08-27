@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d1gq2ujwbgwrj" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://deix8ls6gxiul" path="res://assets/art/grid.png" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d3irkfw3wyiim" path="res://scenes/grid_1.gd" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://cl0fday6f0rud" path="res://scripts/grid_2.gd" id="4_0tnpc"]
 [ext_resource type="Script" uid="uid://c837rqixkelwo" path="res://scripts/shipButton.gd" id="4_gee14"]
 [ext_resource type="PackedScene" uid="uid://brb15et0m5cyd" path="res://scenes/ship2x1.tscn" id="5_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://de7fsmseerj1j" path="res://scenes/ship3x1.tscn" id="6_vtaks"]
@@ -24,6 +25,7 @@ script = ExtResource("2_yqjtg")
 position = Vector2(832, 311)
 scale = Vector2(2, 2)
 texture = ExtResource("1_uwrxv")
+script = ExtResource("4_0tnpc")
 
 [node name="fire" type="Button" parent="." unique_id=133907721]
 visible = false
@@ -45,27 +47,22 @@ script = ExtResource("4_gee14")
 
 [node name="ship1" parent="buttons" unique_id=1008808700 instance=ExtResource("5_0tnpc")]
 position = Vector2(175, 568)
-rotation = -1.5707964
 script = null
 
 [node name="ship2" parent="buttons" unique_id=1816039848 instance=ExtResource("6_vtaks")]
 position = Vector2(229, 569)
-rotation = -1.5707964
 script = null
 
 [node name="ship3" parent="buttons" unique_id=1148327715 instance=ExtResource("7_kvpfn")]
 position = Vector2(273, 571)
-rotation = -1.5707964
 script = null
 
 [node name="ship4" parent="buttons" unique_id=347077416 instance=ExtResource("8_dinhu")]
 position = Vector2(331, 568)
-rotation = -1.5707964
 script = null
 
 [node name="ship5" parent="buttons" unique_id=2045744655 instance=ExtResource("8_dinhu")]
 position = Vector2(375, 567)
-rotation = -1.5707964
 script = null
 
 [node name="ready" type="Label" parent="." unique_id=583775444]
@@ -88,4 +85,33 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="shipName" type="Label" parent="." unique_id=1639507935]
+visible = false
+offset_left = 221.0
+offset_top = 479.0
+offset_right = 354.0
+offset_bottom = 502.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="move" type="Button" parent="." unique_id=389375689]
+visible = false
+offset_left = 157.0
+offset_top = 538.0
+offset_right = 212.0
+offset_bottom = 569.0
+disabled = true
+text = "MOVE"
+
+[node name="ability" type="Button" parent="." unique_id=370046441]
+visible = false
+offset_left = 300.0
+offset_top = 538.0
+offset_right = 367.0
+offset_bottom = 569.0
+disabled = true
+text = "ABILITY"
+
 [connection signal="pressed" from="start" to="grid1" method="_on_start_pressed"]
+[connection signal="pressed" from="ability" to="grid1" method="_on_ability_pressed"]
