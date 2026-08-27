@@ -38,11 +38,22 @@ func _hit(id) -> void:
 	var ship = get_ship_by_id(id)
 	ship.health -= 1
 	if ship.health == 0:
+		sink_ship(id)
 		print('ship sunk')
 	
 @rpc("any_peer","reliable")
 func _miss() -> void:
 	pass
+
+@rpc("any_peer","reliable","call_local")
+func sink_ship(id) -> void:
+	var ship = get_ship_by_id(id)
+	ship.ship.disabled = true
+	ship.modulate = Color(0.378, 0.0, 0.0, 1.0)
+	for y in grid.grid:
+		for x in y:
+			if x == id:
+				x = 0
 	
 func get_ship_by_id(id) -> Node2D:
 	for i in grid.ships.get_children():
