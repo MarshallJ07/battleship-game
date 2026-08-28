@@ -2,7 +2,8 @@ extends Sprite2D
 
 
 @onready var grid: Sprite2D = $"../grid1"
-		
+@onready var turn: Label = $"../turn"
+
 		
 func pos_to_grid(pos:Vector2) -> Vector2:
 	return Vector2(floor((pos[0])/16)+5,floor((pos[1])/16)+5)
@@ -33,6 +34,10 @@ func _send_shot_info(id) -> void:
 @rpc("any_peer","reliable","call_local")
 func switch_turn() -> void:
 	grid.turn *= -1
+	if grid.turn == 1:
+		turn.text = "PLAYER 1's TURN"
+	else:
+		turn.text = "PLAYER 2's TURN"
 @rpc("any_peer","reliable")
 func _hit(id) -> void:
 	var ship = get_ship_by_id(id)
@@ -50,10 +55,10 @@ func sink_ship(id) -> void:
 	var ship = get_ship_by_id(id)
 	ship.ship.disabled = true
 	ship.modulate = Color(0.378, 0.0, 0.0, 1.0)
-	for y in grid.grid:
-		for x in y:
-			if x == id:
-				x = 0
+	for y in grid.grid.size():
+		for x in grid.grid[y].size():
+			if grid.grid[y][x] == id:
+				grid.grid[y][x] = 0
 	
 func get_ship_by_id(id) -> Node2D:
 	for i in grid.ships.get_children():
