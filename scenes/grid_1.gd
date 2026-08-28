@@ -35,11 +35,23 @@ var shooting := false
 @onready var buttons: Node2D = $"../buttons"
 @onready var ship_name: Label = $"../shipName"
 
+var white = Sprite2D.new()
+
 func _ready() -> void:
 	add_child(ship)
 	
+	white.texture = preload("res://assets/art/white.png")
+	white.modulate = Color(1,1,1,0.2)
+	add_child(white)
 func _physics_process(delta: float) -> void:
+	
+	white.hide()
 	if placing:
+		var pos = pos_to_grid(get_local_mouse_position())
+		if pos[0] >= 0 and pos[0] <= 9 and pos[1] >= 0 and pos[1] <= 9:
+			white.show()
+			white.position = (pos - Vector2(4.5,4.5)) * 16
+			
 		check_valid_ship(shipSize,pos_to_grid(get_local_mouse_position()))
 	if multiplayer.is_server():
 		_check_ready.rpc()

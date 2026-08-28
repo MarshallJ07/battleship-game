@@ -3,8 +3,22 @@ extends Sprite2D
 
 @onready var grid: Sprite2D = $"../grid1"
 @onready var turn: Label = $"../turn"
+var white = Sprite2D.new()
 
-		
+func _ready() -> void:
+	white.texture = preload("res://assets/art/white.png")
+	white.modulate = Color(1,1,1,0.2)
+
+func _physics_process(delta: float) -> void:
+	
+	
+	add_child(white)
+	var pos = pos_to_grid(get_local_mouse_position())
+	if pos[0] >= 0 and pos[0] <= 9 and pos[1] >= 0 and pos[1] <= 9:
+		white.show()
+		white.position = (pos - Vector2(4.5,4.5)) * 16
+	else:
+		white.hide()
 func pos_to_grid(pos:Vector2) -> Vector2:
 	return Vector2(floor((pos[0])/16)+5,floor((pos[1])/16)+5)
 	
