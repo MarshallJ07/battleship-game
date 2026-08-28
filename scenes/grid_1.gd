@@ -12,7 +12,7 @@ var grid = [
 	[0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0]
 ]
-var CELL_SIZE:int = 16
+var CELL_SIZE:float = 16
 var turn = 1
 var ship: Node2D
 var shipSize = Vector2(4,1)
