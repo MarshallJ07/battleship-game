@@ -35,14 +35,13 @@ func _check_enemy_grid(pos) -> void:
 
 @rpc("any_peer","reliable")
 func _send_shot_info(id) -> void:
-	var ship = get_ship_by_id(id)
 	if id == 0:
 		print('miss')
 		_miss.rpc()
 	else:
-		print('hit ' + str(ship.type), ", ship has ", str(ship.health), " health left")
+		
 		_hit.rpc(id)
-		EventBus.health_change.emit()
+		
 	switch_turn.rpc()
 	grid.shooting = false
 	
@@ -56,6 +55,8 @@ func switch_turn() -> void:
 @rpc("any_peer","reliable")
 func _hit(id) -> void:
 	var ship = get_ship_by_id(id)
+	print('hit ' + str(ship.type), ", ship has ", str(ship.health), " health left")
+	EventBus.health_change.emit()
 	ship.health -= 1
 	if ship.health == 0:
 		sink_ship(id, Steam.getPersonaName())
