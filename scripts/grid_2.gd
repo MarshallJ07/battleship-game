@@ -55,12 +55,20 @@ func switch_turn() -> void:
 @rpc("any_peer","reliable")
 func _hit(id) -> void:
 	var ship = get_ship_by_id(id)
-	print('hit ' + str(ship.type), ", ship has ", str(ship.health), " health left")
-	EventBus.health_change.emit()
+	
 	ship.health -= 1
+	EventBus.health_change.emit()
+	
+	_print_hit.rpc('hit ' + str(ship.type) + ", ship has " + str(ship.health) + " health left")
+	
+	
 	if ship.health == 0:
 		sink_ship(id, Steam.getPersonaName())
 		print('ship sunk')
+		
+@rpc("any_peer","reliable")
+func _print_hit(text) -> void:
+	print(text)
 	
 @rpc("any_peer","reliable")
 func _miss() -> void:
