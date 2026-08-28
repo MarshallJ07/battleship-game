@@ -21,6 +21,18 @@ texture_normal = ExtResource("2_gww7x")
 texture_pressed = ExtResource("3_bndru")
 texture_hover = ExtResource("4_tw5gh")
 
+[node name="healthLabel" type="Label" parent="ship" unique_id=1237952369]
+layout_mode = 0
+offset_left = 44.0
+offset_top = -6.298699
+offset_right = 72.5974
+offset_bottom = 16.701302
+rotation = 1.5707964
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="ghost" type="Sprite2D" parent="." unique_id=1054519083]
 modulate = Color(1, 1, 1, 0.24313726)
 z_index = 1

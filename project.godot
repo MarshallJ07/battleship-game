@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Networking="*uid://uee888spjj62"
 Global="*uid://68d5uwnmfh8k"
+EventBus="*uid://dirbyuiefxa4y"
 
 [display]
 

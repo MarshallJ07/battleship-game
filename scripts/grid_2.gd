@@ -8,11 +8,11 @@ var white = Sprite2D.new()
 func _ready() -> void:
 	white.texture = preload("res://assets/art/white.png")
 	white.modulate = Color(1,1,1,0.2)
-
+	add_child(white)
 func _physics_process(delta: float) -> void:
 	
 	
-	add_child(white)
+	
 	var pos = pos_to_grid(get_local_mouse_position())
 	if pos[0] >= 0 and pos[0] <= 9 and pos[1] >= 0 and pos[1] <= 9:
 		white.show()
@@ -42,7 +42,7 @@ func _send_shot_info(id) -> void:
 	else:
 		print('hit ' + str(ship.type), ", ship has ", str(ship.health), " health left")
 		_hit.rpc(id)
-		
+		EventBus.health_change.emit()
 	switch_turn.rpc()
 	grid.shooting = false
 	

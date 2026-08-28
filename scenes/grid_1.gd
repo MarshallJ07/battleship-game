@@ -40,6 +40,8 @@ var white = Sprite2D.new()
 func _ready() -> void:
 	add_child(ship)
 	
+	EventBus.health_change.connect(_update_health)
+	
 	white.texture = preload("res://assets/art/white.png")
 	white.modulate = Color(1,1,1,0.2)
 	add_child(white)
@@ -80,7 +82,9 @@ func _check_ready() -> void:
 func _enemy_ready(enemyReady) -> void:
 	isEnemyReady = enemyReady
 
-
+func _update_health() -> void:
+	for i in ships.get_children():
+		i.healthLabel.text = str(i.health)
 
 func _input(event: InputEvent) -> void:
 	
